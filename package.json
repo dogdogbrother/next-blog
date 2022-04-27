@@ -9,9 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-jwt": "^4.0.3",
+    "koa-parameter": "^3.0.1",
+    "koa-router": "^10.1.1",
     "next": "12.1.5",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "sequelize": "^6.19.0"
   },
   "devDependencies": {
     "eslint": "8.14.0",
