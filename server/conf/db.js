@@ -4,7 +4,7 @@ let MYSQL_CONF = {
   user: 'root',
   password: DEV_MYSQL_KEY,
   port: '3306',
-  database: 'words'
+  database: 'blogs'
 }
 
 if (!dev) {
@@ -12,7 +12,7 @@ if (!dev) {
     user: 'root',
     password: PROD_MYSQL_KEY,
     port: '3306',
-    database: 'words'
+    database: 'blogs'
   }
 }
 module.exports = {

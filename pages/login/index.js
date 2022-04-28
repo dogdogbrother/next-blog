@@ -1,11 +1,13 @@
+import styles from './login.module.scss'
+import { useState } from 'react'
 
+// 随机出 1/2/3/4 作为背景图
 export default function Login() {
-  
-  function login() {
-    alert("疯狂登录")
-  }
-
-  return (
-    <div onClick={login}>点击我登录</div>
-  )
+  return <div className={styles.wrap}>
+    <div className={styles.mask}>
+      <div className={styles.loginBox}>
+        <div className={styles.avatar}></div>
+      </div>
+    </div>
+  </div>
 }
