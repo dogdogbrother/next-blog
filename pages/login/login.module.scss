@@ -12,7 +12,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba($color: #333, $alpha: 0.4);
+  background-color: rgba($color: #333, $alpha: 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,8 +22,15 @@
   max-width: 420px;
   min-width: 350px;
   background-color: #fff;
-  border-radius: 4px;
+  border-radius: 5px;
   padding: 20px 40px 40px 40px;
+  box-shadow:
+    0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075);
+
 }
 .avatar {
   width: 80px;

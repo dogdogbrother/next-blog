@@ -7,6 +7,6 @@ const router = new Router({prefix:'/user'})
 
 const _auth = jwt({ secret: _JWT_KEY_ })
 
-router.get('/register', register)
+router.post('/register', register)
 
 module.exports = router
