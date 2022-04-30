@@ -8,3 +8,12 @@ export function register(data) {
     data
   })
 }
+
+// 用户注册
+export function login(data) {
+  return http({
+    url: '/user/login',
+    method: 'post',
+    data
+  })
+}

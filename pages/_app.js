@@ -1,8 +1,10 @@
 import '../styles/globals.css'
-import 'antd/dist/antd.css'
+import { StoreProvider } from 'store/index';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return <StoreProvider>
+    <Component {...pageProps} />
+  </StoreProvider>
 }
 
 export default MyApp

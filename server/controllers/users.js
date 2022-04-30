@@ -3,6 +3,8 @@ const HOST = require('../utils/host')
 const { _JWT_KEY_ } = require('../conf/secretKeys')
 const jsonwebtoken = require('jsonwebtoken')
 const doCrypto = require('../utils/cryp')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op
 class UsersCtl {
   async register(ctx) {
     ctx.verifyParams({
@@ -43,6 +45,31 @@ class UsersCtl {
       nickname: username,
       avatar,
       id
+    }
+  }
+
+  async login(ctx) {
+    ctx.verifyParams({
+      username: { type: 'string', required: true },
+      password: { type: 'string', required: true },
+    })
+    const { username, password } = ctx.request.body
+    const user = await User.findOne({
+      attributes: ['username', 'id', 'nickname', 'avatar' ],
+      where: {
+        [Op.and]: [{ username },{ password: doCrypto(password) }]
+      }
+    })
+    if (user) {
+      const { nickname, id, avatar } = user
+      const token = jsonwebtoken.sign(
+        { id }, 
+        _JWT_KEY_, 
+        { expiresIn: '20d' }
+      )
+      ctx.body = { nickname, id, avatar, token }
+    } else {
+      return ctx.throw(403, '账户名或者密码错误')
     }
   }
 }

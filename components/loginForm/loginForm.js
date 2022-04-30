@@ -1,5 +1,6 @@
 import { Form, Input, Button } from 'antd'
 import styles from './form.module.scss'
+import { username, password } from './rules'
 
 export default function LoginForm(props) {
   const { onSwitch, onFinish } = props
@@ -12,23 +13,13 @@ export default function LoginForm(props) {
   >
     <Form.Item
       name="username"
-      rules={[
-        {
-          required: true,
-          message: '用户名不能为空',
-        },
-      ]}
+      rules={username}
     >
       <Input placeholder='请输入用户名'/>
     </Form.Item>
     <Form.Item
       name="password"
-      rules={[
-        {
-          required: true,
-          message: '密码不能为空!',
-        },
-      ]}
+      rules={password}
     >
       <Input.Password placeholder='请输入密码'/>
     </Form.Item>
