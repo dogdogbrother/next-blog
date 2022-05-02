@@ -7,15 +7,16 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>worn bus的博客</title>
-        <meta 
-          name="description" 
-          content="作为个人的技术分享,内容包含但不限于js/javascript/css/react/vue/node/koa/前端/后端/mysql/linux/nginx" 
-        />
+        <title>worn bus blog</title>
+        <meta name="description" content="王浩的博客" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>worn bus的博客</div>
+      <div className={styles.wrap}>
+        <div></div>
+        <div>这里是我的内容</div>
+      </div>
     </div>
   )
 }
 
+Home.layout = null

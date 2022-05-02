@@ -72,6 +72,12 @@ class UsersCtl {
       return ctx.throw(403, '账户名或者密码错误')
     }
   }
+
+  async info(ctx) {
+    const { id } = ctx.state.user
+    const user = await User.findByPk(id)
+    ctx.body = user
+  }
 }
 
 module.exports = new UsersCtl()

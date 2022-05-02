@@ -7,7 +7,8 @@ enableStaticRendering(true)
 const StoreContext = createContext({})
 
 export const StoreProvider = ({ children }) => {
-  const store = useLocalObservable(() => ({...userState}));
+  const store = useLocalObservable(() => ({...userState}))
+  store.getUserInfo()
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   )

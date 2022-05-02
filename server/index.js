@@ -5,7 +5,9 @@ const next = require('next')
 const routing = require('./routes')
 
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
+const hostname = 'localhost';
+const port = 3000;
+const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
 const PORT = 3000

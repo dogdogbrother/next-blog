@@ -5,6 +5,7 @@ import RegisterForm from 'components/loginForm/registerForm'
 import { register, login } from 'api/user'
 import { useStore } from 'store/index'
 import { useRouter } from 'next/router'
+import { setCookie } from 'utils/cookie'
 
 export default function Login() {
   const store = useStore()
@@ -17,7 +18,7 @@ export default function Login() {
     postData(values).then(res => {
       const { token } = res
       store.setUserInfo(res)
-      localStorage.setItem('token', token)
+      setCookie('token', token)
       push('/')
     })
   }
@@ -40,3 +41,5 @@ export default function Login() {
     </div>
   </div>
 }
+
+Login.layout = null

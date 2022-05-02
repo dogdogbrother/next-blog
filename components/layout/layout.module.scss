@@ -1,0 +1,35 @@
+.wrap {
+  display: flex;
+  
+}
+@media screen and (min-width:1000px) {
+  .wrap {
+    div {
+      height: 100vh;
+    }
+    div:first-child {
+      width: 70%;
+      background-image: url('/img/home-bg.jpeg');
+      background-size: cover;
+      background-position: center center;
+    }
+    div:last-child {
+      width: 30%;
+    }
+  }
+}
+
+@media screen and (max-width:1000px) {
+  .wrap {
+    flex-direction: column;
+    div:first-child {
+      height: 100vw;
+      background-image: url('/img/home-bg.jpeg');
+      background-size: cover;
+      background-position: center center;
+    }
+    div:last-child {
+      // width: 30%;
+    }
+  }
+}

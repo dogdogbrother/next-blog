@@ -17,3 +17,11 @@ export function login(data) {
     data
   })
 }
+
+// 用户信息
+export function getUserInfo() {
+  return http({
+    url: '/user/info/',
+    method: 'get'
+  })
+}

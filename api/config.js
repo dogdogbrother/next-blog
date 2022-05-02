@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { getCookie, delCookie } from 'utils/cookie'
 
 const http = axios.create()
 
 http.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('token')
+    const token = getCookie('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     } 
@@ -19,6 +20,7 @@ http.interceptors.response.use(
   err => {
     const { data:msg = "网络错误", status = 500 } = err.response || {}
     if (status === 401) {
+      delCookie('token')
       // router.push('/login')
     }
     return Promise.reject({

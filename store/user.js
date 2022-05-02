@@ -1,4 +1,5 @@
-
+import { getUserInfo  } from 'api/user'
+import { getCookie } from 'utils/cookie'
 const userStore = {
   userInfo: {
     nickname: '',
@@ -8,6 +9,12 @@ const userStore = {
   },
   setUserInfo(value) {
     this.userInfo = value
+  },
+  getUserInfo() {
+    if (!getCookie('token')) return
+    getUserInfo().then(res => {
+      this.setUserInfo(res)
+    })
   }
 }
 
