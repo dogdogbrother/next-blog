@@ -1,0 +1,33 @@
+.exhibition {
+  background-image: url('/img/login-bg-1.jpg');
+  background-position: center center;
+  background-size: cover;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  div {
+    position: relative;
+    top: -10px;
+  }
+  h2 {
+    color: rgba($color: #fff, $alpha: 0.95);
+    font-size: 38px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+  p {
+    text-align: center;
+    color: rgba($color: #fff, $alpha: 0.85);
+    font-size: 15px;
+  }
+}
+.emptyBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span {
+    margin-bottom: 15px;
+  }
+}

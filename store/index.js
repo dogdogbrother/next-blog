@@ -1,14 +1,14 @@
-import userState from './user'
 import React, { createContext, useContext } from 'react'
 import { useLocalObservable, enableStaticRendering } from 'mobx-react-lite'
+import createStore from './rootStore'
 
-enableStaticRendering(true)
+enableStaticRendering(false)
 
 const StoreContext = createContext({})
 
-export const StoreProvider = ({ children }) => {
-  const store = useLocalObservable(() => ({...userState}))
-  store.getUserInfo()
+export const StoreProvider = ({ initialValue, children }) => {
+  const store = useLocalObservable(createStore(initialValue))
+  store.user.getUserInfo()  // 获取用户信息
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   )

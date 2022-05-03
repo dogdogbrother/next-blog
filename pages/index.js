@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import styles from './home.module.scss'
 import { useStore } from 'store/index'
+import { Button } from 'antd'
+import { observer } from 'mobx-react-lite'
 
-export default function Home() {
-  const store = useStore()
+function Home() {
+  const { catalog } = useStore()
   return (
     <div>
       <Head>
@@ -14,8 +16,29 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>worn bus的博客</div>
+      <div>
+        <div className={styles.exhibition}>
+          <div>
+            <h2>welcome to my blog</h2>
+            <p>记录些日常所见,碎碎念</p>
+          </div>
+        </div>
+        <div className={styles.emptyBtn}>
+          <span>还没有文章和目录,要先有目录才能写文章哦</span>
+          <Button 
+            type='primary'
+            shape='round'
+            onClick={() => catalog.setCatalogDrawer(true)}
+          >创建目录</Button>
+        </div>
+
+        {/* <section className={styles.blogList}>
+
+        </section> */}
+      </div>
     </div>
   )
 }
+
+export default observer(Home)
 
