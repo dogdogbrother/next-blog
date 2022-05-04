@@ -2,6 +2,7 @@ import { Button, Drawer, Form, Input, Radio } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'store/index'
 import { useEffect } from 'react'
+import { addCatalogList } from 'api/catalog'
 
 function AddCatalog() {
   const { catalog } = useStore()
@@ -13,8 +14,11 @@ function AddCatalog() {
       form.resetFields()
     }
   }, [state])
-  function onSubmit(value) {
-
+  function onSubmit(values) {
+    console.log(values)
+    addCatalogList().then(res => {
+      console.log(res);
+    })
   }
   const colorOptions = [
     { label: '明亮', value: 'bright' },
@@ -39,7 +43,7 @@ function AddCatalog() {
     >
       <Form.Item
         label="目录名称"
-        name="username"
+        name="catalogName"
         rules={[
           { required: true, message: '目录名称不能为空' },
           { min: 2, max: 12, message: '目录名称2到12个字', validateTrigger: 'onBlur' }
@@ -49,7 +53,7 @@ function AddCatalog() {
       </Form.Item>
       <Form.Item
         label="banner图片"
-        name="username"
+        name="url"
         extra="你可以不选,但会默认随机分配个图片"
       >
         <div>

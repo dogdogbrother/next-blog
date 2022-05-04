@@ -3,9 +3,14 @@ import { Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import AddCatalog from '../addCatalog/index'
 import { useStore } from 'store/index'
+import { useEffect } from 'react'
 
 export default function HeaderNav() {
   const { catalog } = useStore()
+  useEffect(() => {
+    console.log(1);
+    // catalog.getCatalog()
+  }, [])
   const menu = (
     <Menu
       onClick={() => catalog.setCatalogDrawer(true)}

@@ -1,6 +1,7 @@
 /**
  * @description 文章目录状态管理
  */
+ import { getCatalogList } from 'api/catalog'
 
 export const initValue = {
   list: [],
@@ -18,6 +19,10 @@ const catalogStore = () => {
         state
       }
     },
+    getCatalog: async function() {
+      const list = await getCatalogList()
+      console.log(list);
+    }
   }
 }
 
