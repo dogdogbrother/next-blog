@@ -20,7 +20,7 @@ class CatalogCtl {
     } = query
     // 如果没有输入主题 默认主题为目录名称
     if (!subject) {
-      query.colorTheme = catalogName
+      query.subject = catalogName
     }
     if (!url) {
       const random = Math.floor(Math.random() * 4)
@@ -28,11 +28,11 @@ class CatalogCtl {
     }
     const[, created] = await Catalog.findOrCreate({
       where: {
-        username
+        catalogName
       },
       defaults: query
     })
-    if (created) {
+    if (!created) {
       return ctx.throw(409, '用户名已占用')
     }
     ctx.status = 201

@@ -1,13 +1,17 @@
 import { Button, Drawer, Form, Input, Radio } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'store/index'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { addCatalogList } from 'api/catalog'
-
+import styles from './add.module.scss'
+import { uploadImg } from 'api/upload'
 function AddCatalog() {
   const { catalog } = useStore()
   const { state } = catalog.catalogInfo
   const [form] = Form.useForm()
+  const [uploadLoading, setUploadLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [url, setUrl] = useState('')
 
   useEffect(() => {
     if(state) {
@@ -15,10 +19,28 @@ function AddCatalog() {
     }
   }, [state])
   function onSubmit(values) {
-    console.log(values)
-    addCatalogList().then(res => {
-      console.log(res);
+    setSubmitLoading(true)
+    addCatalogList({
+      ...values,
+      url
+    }).then(() => {
+      // 添加成功了,就触发下获取接口
+      catalog.setCatalogDrawer(false)
+      catalog.getCatalog()
+    }).finally(() => {
+      setSubmitLoading(false)
     })
+  }
+  function onUpload({ target }) {
+    const file = target.files[0]
+    const formData = new FormData()
+    formData.append('file', file)
+    setUploadLoading(true)
+    uploadImg(formData)
+      .then(res => {
+        setUrl(res)
+      })
+      .finally(() => setUploadLoading(false))
   }
   const colorOptions = [
     { label: '明亮', value: 'bright' },
@@ -39,7 +61,12 @@ function AddCatalog() {
       requiredMark={false}
       labelAlign="left"
       colon={false}
-      initialValues={{colorTheme: 'bright'}}
+      initialValues={{
+        catalogName: '',
+        colorTheme: 'bright',
+        subject: '',
+        describe: '',
+      }}
     >
       <Form.Item
         label="目录名称"
@@ -56,12 +83,27 @@ function AddCatalog() {
         name="url"
         extra="你可以不选,但会默认随机分配个图片"
       >
-        <div>
-          <Button type='primary'>添加图片</Button>
+        <div className={styles.fileWrap}>
+          {
+            url ? <div 
+              className={styles.view}
+              style={{backgroundImage: `url(${url})`}}
+            ></div> : null
+          }
+          <label 
+            htmlFor="file-input" 
+            className={uploadLoading ? styles.uploadLoading : styles.btn}
+          >{url ? '更换' : '添加'}图片</label>
+          <input 
+            id="file-input" 
+            type="file" 
+            accept="image/*" 
+            onChange={onUpload}
+          />
         </div>
       </Form.Item>
       <Form.Item
-        label="主题"
+        label="主题概要"
         name="subject"
         extra="你也可以不写,默认展示目录名称"
       >
@@ -88,7 +130,7 @@ function AddCatalog() {
       <Form.Item
         wrapperCol={{ offset: 5 }}
       >
-        <Button type='primary' htmlType="submit">创建</Button>
+        <Button loading={submitLoading} type='primary' htmlType="submit">创建</Button>
       </Form.Item>
     </Form>
   </Drawer>

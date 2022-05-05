@@ -21,7 +21,10 @@ const catalogStore = () => {
     },
     getCatalog: async function() {
       const list = await getCatalogList()
-      console.log(list);
+      this.catalogInfo = {
+        ...this.catalogInfo,
+        list
+      }
     }
   }
 }

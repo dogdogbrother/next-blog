@@ -1,16 +1,17 @@
 import styles from './header.module.scss'
 import { Dropdown, Menu } from 'antd'
-import Link from 'next/link'
 import AddCatalog from '../addCatalog/index'
 import { useStore } from 'store/index'
 import { useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
 
-export default function HeaderNav() {
+function HeaderNav() {
   const { catalog } = useStore()
+
   useEffect(() => {
-    console.log(1);
-    // catalog.getCatalog()
+    catalog.getCatalog()
   }, [])
+
   const menu = (
     <Menu
       onClick={() => catalog.setCatalogDrawer(true)}
@@ -27,8 +28,13 @@ export default function HeaderNav() {
     <div className={styles.avatar}></div>
     <div className={styles.rightHeader}>
       <nav className={styles.nav}>
-        <Link href='/login'>css文章</Link>
-        <Link href='/login'>js文章</Link>
+        {
+          catalog.catalogInfo.list.map(item => {
+            return <span 
+              key={item.id}
+            >{item.catalogName}</span>
+          })
+        }
       </nav>
       <Dropdown.Button type='primary' overlay={menu}>
         写文章
@@ -37,3 +43,5 @@ export default function HeaderNav() {
     <AddCatalog />
   </div>
 }
+
+export default observer(HeaderNav)

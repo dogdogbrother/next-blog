@@ -18,7 +18,7 @@ function Home() {
       </Head>
       <div>
         <div className={styles.exhibition}>
-          <div>
+          <div className={styles.blogSummary}>
             <h2>welcome to my blog</h2>
             <p>记录些日常所见,碎碎念</p>
           </div>
@@ -31,7 +31,6 @@ function Home() {
             onClick={() => catalog.setCatalogDrawer(true)}
           >创建目录</Button>
         </div>
-
         {/* <section className={styles.blogList}>
 
         </section> */}
