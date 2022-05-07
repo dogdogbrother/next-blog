@@ -18,10 +18,32 @@
     > * {
       margin-right: 15px;
       font-size: 15px;
-      color: rgba($color: #2c3e50, $alpha: 1);
+      color: rgba($color: #2c3e50, $alpha: 0.8);
+      &:after {
+        transition: .3s;
+        content: '';
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 3px;
+        border-radius: 2px;
+        background-color: #000;
+        bottom: -8px;
+        left: 50%;
+      }
+    }
+    .none {
       cursor: pointer;
       &:hover {
         color: rgba($color: #2c3e50, $alpha: 1);
+      }
+    }
+    .active {
+      color: rgba($color: #222, $alpha: .9);
+      position: relative;
+      &:after {
+        width: 60%;
+        left: 20%;
       }
     }
   }

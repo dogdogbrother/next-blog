@@ -9,6 +9,7 @@ const StoreContext = createContext({})
 export const StoreProvider = ({ initialValue, children }) => {
   const store = useLocalObservable(createStore(initialValue))
   store.user.getUserInfo()  // 获取用户信息
+  store.catalog.getCatalog()  // 获取博客目录列表
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   )

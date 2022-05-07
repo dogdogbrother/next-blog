@@ -17,7 +17,7 @@ export default function Login() {
   function onFinish(values) {
     postData(values).then(res => {
       const { token } = res
-      store.setUserInfo(res)
+      store.user.setUserInfo(res)
       setCookie('token', token)
       push('/')
     })
