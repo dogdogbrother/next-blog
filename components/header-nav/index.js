@@ -1,5 +1,5 @@
 import styles from './header.module.scss'
-import { Dropdown, Menu } from 'antd'
+import { Dropdown, Menu, Button } from 'antd'
 import AddCatalog from '../addCatalog/index'
 import { useStore } from 'store/index'
 import { observer } from 'mobx-react-lite'
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 
 function HeaderNav() {
   const { catalog } = useStore()
+  const { list, currentCatalogId, loading: catalogLoading  } = catalog.catalogInfo
   const { push } = useRouter()
   const menu = (
     <Menu
@@ -20,7 +21,7 @@ function HeaderNav() {
   function toAddBlog() {
     push({
       pathname: '/addblog',
-      query: { catalogId: catalog.catalogInfo.currentCatalogId }
+      query: { catalogId: currentCatalogId }
     })
   }
 
@@ -30,18 +31,26 @@ function HeaderNav() {
     <div className={styles.rightHeader}>
       <nav className={styles.nav}>
         {
-          catalog.catalogInfo.list.map(item => {
+          list.map(item => {
             return <span 
               key={item.id}
               onClick={() => catalog.changeCatalog(item.id)}
-              className={catalog.catalogInfo.currentCatalogId === item.id ? styles.active : styles.none}
+              className={currentCatalogId === item.id ? styles.active : styles.none}
             >{item.catalogName}</span>
           })
         }
       </nav>
-      <Dropdown.Button type='primary' overlay={menu} onClick={toAddBlog}>
-        写文章
-      </Dropdown.Button>
+      {
+        (!catalogLoading && !list.length)
+        ? <Button 
+          type='primary' 
+          shape='round'
+          onClick={() => catalog.setCatalogDrawer(true)}
+        >创建目录</Button> 
+        : <Dropdown.Button type='primary' overlay={menu} onClick={toAddBlog}>
+          写文章
+        </Dropdown.Button>
+      }
     </div>
     <AddCatalog />
   </div>

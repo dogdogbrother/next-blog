@@ -1,5 +1,5 @@
 const seq = require('../db/seq')
-const { STRING } = require('../db/types')
+const { STRING, INTEGER } = require('../db/types')
 
 const Blog = seq.define('blog', {
   title: {
@@ -12,6 +12,16 @@ const Blog = seq.define('blog', {
     type: STRING(10000),
     allowNull: false,
     comment: '博客内容'
+  },
+  catalogId: {
+    type: INTEGER,
+    allowNull: false,
+    comment: '博客所属目录'
+  },
+  userId: {
+    type: INTEGER,
+    allowNull: false,
+    comment: '用户id'
   },
 })
 

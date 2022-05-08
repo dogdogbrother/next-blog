@@ -1,5 +1,5 @@
 const seq = require('../db/seq')
-const { STRING, ENUM } = require('../db/types')
+const { STRING, ENUM, INTEGER } = require('../db/types')
 
 const Catalog = seq.define('catalog', {
   catalogName: {
@@ -27,7 +27,12 @@ const Catalog = seq.define('catalog', {
     type: ENUM('bright', 'dark'),
     allowNull: false,
     comment: '主题和描述的文章颜色'
-  }
+  },
+  userId: {
+    type: INTEGER,
+    allowNull: false,
+    comment: '用户id'
+  },
 })
 
 module.exports = Catalog

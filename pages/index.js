@@ -3,10 +3,14 @@ import styles from './home.module.scss'
 import { useStore } from 'store/index'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
-// import { useEffect, useState } from 'react'
+import { getBlogList } from 'api/blog'
+import { useEffect, useState } from 'react'
 
 function Home() {
   const { catalog } = useStore()
+  useEffect(() => {
+    getBlogList()
+  }, [])
   // 没有选择目录的情况下的初始显示
   const initCatalogInfo = {
     subject: 'welcome to my blog',

@@ -12,11 +12,12 @@ class TagCtl {
       tagColor: { type: 'string', required: true },  // 标签颜色
     })
     const { tagName, tagColor} = ctx.request.body
+    const { id: userId } = ctx.state.user
     const [, created] = await Tag.findOrCreate({
       where: {
         tagName
       },
-      defaults: { tagName, tagColor }
+      defaults: { tagName, tagColor, userId }
     })
     if (!created) {
       return ctx.throw(409, '标签名重复')

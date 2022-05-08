@@ -1,5 +1,16 @@
 .tagBox {
-  > * {
+  display: flex;
+  > div {
     cursor: pointer;
+    position: relative;
   }
+}
+
+.checkIcon {
+  color: #52c41a;
+  font-size: 10px;
+  position: absolute;
+  z-index: 1000;
+  top: -2px;
+  right: 6px;
 }

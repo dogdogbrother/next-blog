@@ -13,11 +13,13 @@ class CatalogCtl {
       colorTheme: { type: 'string', required: true },  // 文章颜色,有bright和dark
     })
     const { body: query } = ctx.request
+    const { id: userId } = ctx.state.user
     const {
       catalogName,
       subject,
       url
     } = query
+    query.userId = userId
     // 如果没有输入主题 默认主题为目录名称
     if (!subject) {
       query.subject = catalogName

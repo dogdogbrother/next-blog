@@ -2,16 +2,17 @@ import { Modal, Tag, Divider, Form, Input, Select, Button } from 'antd'
 import { addTag, getTagList } from 'api/tag'
 import { useState, useEffect } from 'react'
 import styles from './tag.module.scss'
-
+import { CheckCircleFilled } from '@ant-design/icons'
 function AddTag(props) {
-  const { tagState, setTagState } = props
+  const { tagState, setTagState, setAllTag } = props
   const [addTagLoading, setAddTagLoading] = useState(false)
   const [tags, setTags] = useState([])
   const [form] = Form.useForm()
-  const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
+  const [checkTag, setCheckTag] = useState([])
   useEffect(() => {
     _getTagList()
   }, [])
+  const colors = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
   function onSubmit(values) {
     setAddTagLoading(true)
     addTag(values).then(() => {
@@ -24,28 +25,39 @@ function AddTag(props) {
       setTags(res)
     })
   }
-  function handleOk() {
-    setTagState(false)
-  }
   function handleCancel() {
     setTagState(false)
   }
-  function selectTag() {
-    alert(2222)
+  const selectTag = (id) => () => {
+    let _checkTag = checkTag
+    const finTag = _checkTag.find(tag => tag === id)
+    if (finTag) {
+      _checkTag = checkTag.filter(tag => tag !== id)
+      setCheckTag(checkTag.filter(tag => tag !== id))
+    } else _checkTag = [...checkTag, id]
+    setCheckTag(_checkTag)
+    setAllTag(tags.filter(tag => {
+      return _checkTag.find(item => item === tag.id)
+    }))
   }
   return <Modal
     title="编辑标签" 
     visible={tagState}
-    onOk={handleOk} 
     onCancel={handleCancel}
+    footer={null}
   >
     <div className={styles.tagBox}>
       {
-        tags.map(tag => <Tag 
-          key={tag.id} 
-          color={tag.tagColor}
-          onClick={selectTag}
-        >{tag.tagName}</Tag>)
+        tags.map(tag => <div key={tag.id} onClick={selectTag(tag.id)}>
+          {
+            checkTag.find(item => item === tag.id) 
+            ? <CheckCircleFilled className={styles.checkIcon}/>
+            : null
+          }
+          <Tag 
+            color={tag.tagColor}
+          >{tag.tagName}</Tag>
+        </div>)
       }
     </div>
     <Divider />
@@ -72,7 +84,7 @@ function AddTag(props) {
           { min: 2, max: 8, message: '标签名称2到8个字', validateTrigger: 'onBlur' }
         ]}
       >
-        <Input style={{width: '110px'}} />
+        <Input style={{width: '100px'}} />
       </Form.Item>
       <Form.Item 
         label="标签颜色"
