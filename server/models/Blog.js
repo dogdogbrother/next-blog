@@ -23,6 +23,11 @@ const Blog = seq.define('blog', {
     allowNull: false,
     comment: '用户id'
   },
+  coverUrl: {
+    type: STRING,
+    allowNull: true,
+    comment: '博客封面'
+  }
 })
 
 module.exports = Blog

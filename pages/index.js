@@ -5,11 +5,15 @@ import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { getBlogList } from 'api/blog'
 import { useEffect, useState } from 'react'
+import BlogList from 'components/blogList'
 
 function Home() {
   const { catalog } = useStore()
+  const [blogList, setBlogList] = useState([])
   useEffect(() => {
-    getBlogList()
+    getBlogList().then(res => {
+      setBlogList(res)
+    })
   }, [])
   // 没有选择目录的情况下的初始显示
   const initCatalogInfo = {
@@ -50,9 +54,7 @@ function Home() {
             >创建目录</Button>
           </div> : null
         }
-        {/* <section className={styles.blogList}>
-
-        </section> */}
+        <BlogList list={blogList} />
       </div>
     </div>
   )

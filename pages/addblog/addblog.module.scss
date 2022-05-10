@@ -15,4 +15,55 @@
   align-items: center;
   height: 50px;
   padding: 0 20px;
+  > div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.fileWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  input {
+    width: 0px;
+    height: 0px;
+  }
+  .uploadLoading {
+    cursor: no-drop;
+    color: rgba(0, 0, 0, 0.25);
+  }
+  .btn {
+    color: #1890ff;
+    cursor: pointer;
+    &:hover {
+      color: #40a9ff;
+    }
+  }
+}
+.cover {
+  background-size: cover;
+  background-position: center center;
+  width: 45px;
+  height: 30px;
+  margin-right: 5px;
+  position: relative;
+  border-radius: 4px;
+  .mask {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #333, $alpha: 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  &:hover .mask {
+    display: flex;
+  }
+}
+.delIcon {
+  color: rgba($color: #fff, $alpha: 0.9);
+  font-size: 16px;
+  cursor: pointer;
 }

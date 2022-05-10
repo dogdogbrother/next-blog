@@ -1,5 +1,5 @@
 const { Blog, TagRelation } = require('../models/index')
-
+const Sequelize = require('sequelize')
 class BlogCtl {
   async add(ctx) {
     ctx.verifyParams({
@@ -8,14 +8,14 @@ class BlogCtl {
       catalogId: { type: 'string', required: true },
       tags: { type: 'array', required: true },
     })
-    const { tags, title, content, catalogId } = ctx.request.body
+    const { tags, title, content, catalogId, coverUrl = '' } = ctx.request.body
     const { id: userId } = ctx.state.user
 
     const[{ id: blogId }, created] = await Blog.findOrCreate({
       where: {
         title
       },
-      defaults: { title, content, catalogId, userId }
+      defaults: { title, content, catalogId, userId, coverUrl }
     })
     if (!created) {
       return ctx.throw(409, '文章名已占用')
@@ -29,7 +29,8 @@ class BlogCtl {
   }
 
   async list(ctx) {
-    ctx.body = []
+    const blogs = await Blog.findAll({})
+    ctx.body = blogs
   }
 }
 

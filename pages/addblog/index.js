@@ -9,6 +9,8 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import AddTag from 'components/addTag'
 import { addBlog } from 'api/blog'
+import { uploadImg } from 'api/upload'
+import { DeleteFilled } from '@ant-design/icons'
 
 const MDEditor = dynamic(
   () => import("@uiw/react-md-editor"),
@@ -17,12 +19,15 @@ const MDEditor = dynamic(
 
 function AddBlog() {
   const { catalog }  = useStore()
-  const { query } = useRouter();
+  const { query, back } = useRouter();
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('')
   const [tagState, setTagState] = useState(false)
   const [tags, setTags] = useState([])
   const [catalogId, setCatalogId] = useState(query.catalogId ? Number(query.catalogId) : undefined)
+  const [coverLoading, setCoverLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [coverUrl, setCoverUrl] = useState('')
   function onChangeTital(event) {
     setTitle(event.target.value)
   }
@@ -36,12 +41,27 @@ function AddBlog() {
     if (!catalogId) {
       return message.error('请选择博客目录')
     }
+    setSubmitLoading(true)
     addBlog({
       title,
       content: value,
       catalogId: String(catalogId),
-      tags: tags.map(tag => tag.id)
-    })
+      tags: tags.map(tag => tag.id),
+      coverUrl
+    }).then(() => {
+      back()
+    }).finally(() => setSubmitLoading(false))
+  }
+  function onCover({ target }) {
+    const file = target.files[0]
+    const formData = new FormData()
+    formData.append('file', file)
+    setCoverLoading(true)
+    uploadImg(formData)
+      .then(res => {
+        setCoverUrl(res)
+      })
+      .finally(() => setCoverLoading(false))
   }
   return (
     <div>
@@ -81,8 +101,33 @@ function AddBlog() {
             </Tag>)
           }
           <Button type="link" onClick={() => setTagState(true)}>选择标签</Button>
+          {
+            coverUrl ? <div 
+              className={styles.cover}
+              style={{backgroundImage: `url(${coverUrl})`}}
+            >
+              <div className={styles.mask}>
+                <DeleteFilled 
+                  className={styles.delIcon}
+                  onClick={() => setCoverUrl('')}
+                />
+              </div>
+            </div> : null
+          }
+          <div className={styles.fileWrap}>
+            <label 
+              htmlFor="file-input" 
+              className={coverLoading ? styles.uploadLoading : styles.btn}
+            >{coverUrl ? '更换' : '添加'}封面</label>
+            <input 
+              id="file-input" 
+              type="file" 
+              accept="image/*" 
+              onChange={onCover}
+            />
+          </div>
         </div>
-        <Button type='primary' onClick={onSubmit}>发布</Button>
+        <Button type='primary' onClick={onSubmit} loading={submitLoading}>发布</Button>
       </div>
       <AddTag tagState={tagState} setTagState={setTagState} setAllTag={setTags} />
     </div>
