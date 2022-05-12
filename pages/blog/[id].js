@@ -1,7 +1,12 @@
+import MarkDown from 'markdown-to-jsx'
+import styles from './blog.module.scss'
+
 export default function Blog({ blogInfo = {} }) {
-  console.log(blogInfo);
-  return <div>
+  const { content, title } = blogInfo
+  return <div className={styles.wrap}>
     {JSON.stringify(blogInfo)}
+    <h2>{title}</h2>
+    <MarkDown>{content}</MarkDown>
   </div>
 }
 export async function getStaticPaths() {
@@ -24,3 +29,5 @@ export async function getStaticProps({ params }) {
     }
   }
 }
+
+Blog.layout = null

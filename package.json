@@ -23,6 +23,8 @@
     "koa-jwt": "^4.0.3",
     "koa-parameter": "^3.0.1",
     "koa-router": "^10.1.1",
+    "markdown-to-jsx": "^7.1.7",
+    "markdown-to-txt": "^2.0.1",
     "mobx": "^6.4.2",
     "mobx-react-lite": "^3.3.0",
     "mysql2": "^2.3.3",

@@ -1,7 +1,7 @@
 import styles from './blog.module.scss'
 import { dateWidget, blogInfo } from './index'
 function coverBlog(props) {
-  const { data } = props
+  const { data, toBlog } = props
 
   return <div className={styles.card}>
     <div 
