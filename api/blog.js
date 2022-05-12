@@ -17,3 +17,11 @@ export function getBlogList(params) {
     params
   })
 }
+
+// 博客内容
+export function getBlogInfo(blogId) {
+  return http({
+    url: `/blog/info/${blogId}`,
+    method: 'get',
+  })
+}

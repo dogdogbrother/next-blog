@@ -5,26 +5,36 @@
   margin: 0 auto;
 }
 .card {
-  position: relative;
   overflow: hidden;
-  .cover {
-    border-radius: 2px;
-    background-size: cover;
-    background-position: center center;
-    height: 200px;
-  }
-  .fixDate {
-    line-height: 26px;
-    text-align: center;
-    width: 100px;
-    background-color: rgba($color: #fff, $alpha: 1);
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    font-size: 12px;
-    border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 4px 4px 16px #ffffff;
+  transition: .3s;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 4px 4px 16px #d4d4d4;
   }
 }
+.cover {
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center center;
+  height: 200px;
+}
+
+// 组件
+
+.dateWidget {
+  line-height: 26px;
+  text-align: center;
+  width: 100px;
+  background-color: rgba($color: #fff, $alpha: 1);
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba($color: #999, $alpha: 0.3);
+  margin: 15px 0 5px 20px;
+  display: inline-block;
+}
+
 .blogInfo {
   padding: 20px;
   h2 {
@@ -41,17 +51,18 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
-}
-.border {
-  height: 1px;
-  margin: 15px 0;
-  background-color: rgba($color: #000, $alpha: 0.1);
-}
-.footer {
-  display: flex;
-  align-items: center;
-}
-.update {
-  font-size: 13px;
-  color: rgba($color: #333, $alpha: 0.7);
+  .border {
+    height: 1px;
+    margin: 15px 0;
+    background-color: rgba($color: #000, $alpha: 0.1);
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+  }
+  .update {
+    font-size: 13px;
+    color: rgba($color: #333, $alpha: 0.7);
+    margin-right: 20px;
+  }
 }
