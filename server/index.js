@@ -6,11 +6,10 @@ const routing = require('./routes')
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost';
-const port = 3000;
+const port = 3001;
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
-const PORT = 3000
 // 等到pages目录编译完成后启动服务响应请求
 app.prepare().then(() => {
   const server = new Koa()
@@ -21,7 +20,7 @@ app.prepare().then(() => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
   })
-  server.listen(PORT, () => {
-    console.log(`koa server listening on ${PORT}`)
+  server.listen(port, () => {
+    console.log(`koa server listening on ${port}`)
   })
 })

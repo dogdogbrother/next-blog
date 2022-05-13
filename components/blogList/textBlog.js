@@ -4,7 +4,7 @@ import { dateWidget, blogInfo } from './index'
 function TextBlog(props) {
   const { data, toBlog } = props
   return <div className={styles.card} onClick={toBlog}>
-    {dateWidget(`2022-02-02`)}
+    {dateWidget(data.createdAt.split(' ')[0])}
     {blogInfo(data)}
   </div>
 }

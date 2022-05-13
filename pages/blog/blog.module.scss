@@ -2,9 +2,24 @@
   width: 95%;
   max-width: 800px;
   min-width: 400px;
+  min-height: 100vh;
   margin: 0 auto;
-  h2 {
-    font-size: 26px;
-    padding: 20px 0;
-  }
+  padding: 20px 5px;
+}
+.coverUrl {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  top: -20px;
+}
+.title {
+  font-size: 26px;
+  padding: 10px 0 10px 0;
+}
+.address {
+  color: #666;
+  
+}
+.addressspan {
+  font-weight: bold;
 }
